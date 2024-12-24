@@ -1,7 +1,25 @@
+const { marked } = require('marked');
+
 module.exports = function(eleventyConfig) {
-    // Copy the css directory to _site/css
+    // Configure marked options
+    marked.setOptions({
+        gfm: true,
+        breaks: true,
+    });
+
+    // Add markdown paired shortcode
+    eleventyConfig.addPairedShortcode("markdown", function(content) {
+        return marked.parse(content);
+    });
+
+    // Set up markdown library for .md files
+    eleventyConfig.setLibrary("md", {
+        render: content => marked.parse(content)
+    });
+
+    // Copy static assets
     eleventyConfig.addPassthroughCopy("src/css");
-    // Copy CNAME file if it exists
+    eleventyConfig.addPassthroughCopy("src/assets");
     eleventyConfig.addPassthroughCopy("CNAME");
 
     return {

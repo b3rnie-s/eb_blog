@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% if title %}{{ title }}{% else %}Your Name{% endif %}</title>
+    <title>{% if title %}{{ title }}{% else %}Eli Bernstein{% endif %}</title>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <main>
-        {{ content }}
-    </main>
+    <div class="page-container">
+        <header class="logo">
+            <a href="/">
+                <img src="/assets/icons/zia.svg" alt="Logo" class="logo-image">
+            </a>
+        </header>
+
+        <main>
+            {{ content }}
+        </main>
+    </div>
 </body>
 </html>

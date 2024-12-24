@@ -1,20 +1,9 @@
 ---
-layout: base.liquid
+layout: base
 ---
 
-<h1>Welcome!</h1>
-
-<p>I'm an interface researcher interested in how technology can support deeper understanding and playful discovery.</p>
-
-<h2>Posts</h2>
-<ul class="posts">
-{% assign posts = collections.all | reverse %}
-{% for post in posts %}
-    <article>
-        <h3>
-            <a href="{{ post.url }}">{{ post.data.title }}</a>
-        </h3>
-        <time>{{ post.date | date: "%Y-%m-%d" }}</time>
-    </article>
-{% endfor %}
-</ul>
+<div class="content-card">
+    {% markdown %}
+    {% include 'bio.md' %}
+    {% endmarkdown %}
+</div>
