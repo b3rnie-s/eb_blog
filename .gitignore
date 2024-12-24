@@ -128,3 +128,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# 11ty output directory
+_site
+
+# macOS specific
+.DS_Store
+
+# Editor directories
+.idea/
+.vscode/
