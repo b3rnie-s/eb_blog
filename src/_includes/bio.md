@@ -1,13 +1,18 @@
 
-# Welcome
+# Hi, I'm Eli
 
-I'm an interface researcher interested in how technology can support deeper understanding and expand human creative capacity.
+I'm a product generalist who has spent the past 10 years helping startups build stuff people want.
 
-I've done research at NYU focused on *creativity support tools*, developed interfaces at Midjourney and worked as an interaction designer alongside Hugh Dubberly.
+Today, I lead product at [Ascertain](www.ascertain.com) where we're building agentic systems for healthcare. In the past I've worked on [medical devices (hardware and SaMD)](https://optainhealth.com/), [marketplaces](https://torchdental.com/), [business intelligence platforms](https://seatgeek.com/enterprise), and [mobile apps](https://www.forbes.com/sites/annefield/2023/08/09/sallie-mae-buys-key-assets-of-scholarship-app-scholly/).
 
-With Andy Matuschak, we designed [Latticework](#), a text editing environment aimed to help people synthesize freeform, unstructured documents.
+**I like:**
 
-If my work resonates with you, this is a standing invitation to reach out!
+- Walkable cities and public transportation
+- Systems that encourage risk-taking / safety nets
+- Multiplayer games
+- Breakfast burritos
+- Skiing
 
-[✉️ your.email@example.com](mailto:your.email@example.com)
-[🐦 @YourTwitter](https://twitter.com/YourTwitter)
+Please say hello. You can usually find me in Brooklyn, NY or through either of the below:
+<img src="/assets/icons/email.svg" alt="Email" class="contact-icon"> [erb182@gmail.com](mailto:erb182@gmail.com)
+<img src="/assets/icons/twitter.svg" alt="Twitter" class="contact-icon"> [@_bernizz](https://twitter.com/_bernizz)
