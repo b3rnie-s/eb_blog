@@ -14,5 +14,13 @@ Today, I lead product at [Ascertain](www.ascertain.com) where we're building age
 - Skiing
 
 Please say hello. You can usually find me in Brooklyn, NY or through either of the below:
-<img src="/assets/icons/email.svg" alt="Email" class="contact-icon"> [erb182@gmail.com](mailto:erb182@gmail.com)
-<img src="/assets/icons/twitter.svg" alt="Twitter" class="contact-icon"> [@_bernizz](https://twitter.com/_bernizz)
+{% include 'components/contact-link',
+    icon: 'email',
+    text: 'erb182@gmail.com',
+    url: 'mailto:erb182@gmail.com'
+%}
+{% include 'components/contact-link',
+    icon: 'twitter',
+    text: '@_bernizz',
+    url: 'https://twitter.com/_bernizz'
+%}

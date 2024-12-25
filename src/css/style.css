@@ -58,9 +58,23 @@ main {
     }
 }
 
+.contact-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+    transition: opacity 0.2s ease-in-out;
+}
+
 .contact-icon {
-    width: 1em;
-    height: 1em;
+    width: 1.1em;
+    height: 1.1em;
     vertical-align: middle;
-    margin-right: 0.3em;
+    margin-right: 0.5em;
+}
+
+.contact-link:hover {
+    opacity: 0.6;
 }
