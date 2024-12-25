@@ -3,7 +3,7 @@
 
 I'm a product generalist who has spent the past 10 years helping startups build stuff people want.
 
-Today, I lead product at [Ascertain](www.ascertain.com) where we're building agentic systems for healthcare. In the past I've worked on [medical devices (hardware and SaMD)](https://optainhealth.com/), [marketplaces](https://torchdental.com/), [business intelligence platforms](https://seatgeek.com/enterprise), and [mobile apps](https://www.forbes.com/sites/annefield/2023/08/09/sallie-mae-buys-key-assets-of-scholarship-app-scholly/).
+Today, I lead product at [Ascertain](https://www.ascertain.com) where we're building agentic systems for healthcare. In the past I've worked on [medical devices (hardware and SaMD)](https://optainhealth.com/), [marketplaces](https://torchdental.com/), [business intelligence platforms](https://seatgeek.com/enterprise), and [mobile apps](https://www.forbes.com/sites/annefield/2023/08/09/sallie-mae-buys-key-assets-of-scholarship-app-scholly/).
 
 **I like:**
 
