@@ -1,0 +1,21 @@
+<section class="thoughts-section">
+    <div class="thoughts-header">
+        <h2>Bits</h2>
+        <time datetime="{{ collections.thoughts[0].date }}">
+            {{ collections.thoughts[0].date | date: "%B %d, %Y at %I:%M %p" }}
+        </time>
+    </div>
+    <div class="thoughts-carousel">
+        <div class="thought-container">
+            {% for thought in collections.thoughts %}
+                <div class="thought" data-index="{{ forloop.index0 }}" {% if forloop.first != true %}hidden{% endif %}>
+                    <p class="thought-content">{{ thought.content }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="thought-controls">
+            <button class="prev" aria-label="Previous thought">←</button>
+            <button class="next" aria-label="Next thought">→</button>
+        </div>
+    </div>
+</section> 

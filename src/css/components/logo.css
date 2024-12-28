@@ -1,0 +1,26 @@
+.logo {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 10;
+}
+
+.logo-image {
+    width: clamp(100px, 12vw, 100px);
+    height: auto;
+}
+
+@media screen and (max-width: 1024px) {
+    .logo {
+        position: static;
+        padding: 0 1.5rem;
+        margin-top: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .logo {
+        padding: 0 1rem;
+        margin-top: 1rem;
+    }
+} 

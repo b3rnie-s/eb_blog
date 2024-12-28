@@ -1,0 +1,89 @@
+.thoughts-section {
+    background-color: #fcfbf7;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: 1px solid #f0e6d2;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.thoughts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.thoughts-header h2 {
+    font-weight: 500;
+    margin: 0;
+}
+
+.thoughts-header time {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.thoughts-carousel {
+    position: relative;
+    max-width: 600px;
+    margin-top: 1em;
+}
+
+.thought {
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.thought[hidden] {
+    display: none;
+}
+
+.thought-content {
+    line-height: 1.5;
+    margin: 0;
+}
+
+.thought-controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.thought-controls button {
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: opacity 0.2s ease;
+}
+
+.thought-controls button:hover {
+    opacity: 0.7;
+}
+
+.thought-controls button:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.thought-container {
+    height: 150px;         
+    overflow-y: auto;
+    
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+}
+
+/* Optional: Hide scrollbar in Chrome/Safari */
+.thought-container::-webkit-scrollbar {
+    display: none;
+} 
+
+@media screen and (max-width: 768px) {
+    .thoughts-section {
+        min-width: 300px;
+        max-width: 100%;
+    }
+} 
