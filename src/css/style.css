@@ -2,7 +2,8 @@
 @import 'layout.css';
 @import 'components/logo.css';
 @import 'components/bio-card.css';
+@import 'components/snake-separator.css';
 @import 'components/contact-link.css';
 @import 'components/thoughts-carousel.css';
-@import 'components/current-inspiration.css';
+@import 'components/breadcrumbs.css';
 

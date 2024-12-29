@@ -3,7 +3,7 @@
 
 I'm a product generalist who has spent the past 10 years helping startups build stuff people want.
 
-Today, I lead product at [Ascertain](https://www.ascertain.com) where we're building agentic systems for healthcare. In the past I've worked on [medical devices (hardware and SaMD)](https://optainhealth.com/), [marketplaces](https://torchdental.com/), [business intelligence platforms](https://seatgeek.com/enterprise), and [mobile apps](https://www.forbes.com/sites/annefield/2023/08/09/sallie-mae-buys-key-assets-of-scholarship-app-scholly/).
+I lead product at [Ascertain](https://www.ascertain.com), where we're building agentic systems for healthcare. In the past I've worked on [medical devices (hardware and SaMD)](https://optainhealth.com/), [marketplaces](https://torchdental.com/), [business intelligence platforms](https://seatgeek.com/enterprise), and [mobile apps](https://www.forbes.com/sites/annefield/2023/08/09/sallie-mae-buys-key-assets-of-scholarship-app-scholly/).
 
 **I like:**
 
@@ -13,7 +13,7 @@ Today, I lead product at [Ascertain](https://www.ascertain.com) where we're buil
 - Breakfast burritos
 - Skiing
 
-Please say hello. You can usually find me in Brooklyn, NY or through either of the below:
+Please say hello - you can usually find me in Brooklyn, NY or reach me through the below.
 {% include 'components/contact-link',
     icon: 'email',
     text: 'erb182@gmail.com',

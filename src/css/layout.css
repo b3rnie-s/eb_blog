@@ -1,6 +1,6 @@
 .page-container {
     position: relative;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 2rem;
     padding-left: calc(1rem + 100px + 2rem);
@@ -9,7 +9,7 @@
 
 @media screen and (max-width: 1024px) {
     .page-container {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 }
 
@@ -19,14 +19,14 @@
     }
 }
 
-.thoughts-inspiration-container {
+.thoughts-breadcrumbs-container {
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
 }
 
 @media screen and (max-width: 768px) {
-    .thoughts-inspiration-container {
+    .thoughts-breadcrumbs-container {
         flex-direction: column;
         gap: 1rem;
     }

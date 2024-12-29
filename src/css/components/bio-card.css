@@ -1,16 +1,17 @@
 .bio-card {
     padding-left: 1rem;
     padding-right: 1rem;
+    max-width: 800px;
 }
 
 .bio-card h1 {
     margin-block-start: 0.74em;
-    margin-block-end: 0.0em;
+    margin-block-end: 1em;
     font-family: 'Bitter', serif;
     font-weight: 500;
 }
 
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 1024px) {
     .bio-card h1 {
         margin-block-start: 0.0em;
         margin-block-end: 0.0em;

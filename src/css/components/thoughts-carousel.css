@@ -1,8 +1,8 @@
 .thoughts-section {
-    background-color: #fcfbf7;
+    //background-color: #fcfbf7;
     padding: 1rem;
     border-radius: 1rem;
-    border: 1px solid #f0e6d2;
+    border: 1px solid #030304;
     min-width: 300px;
     max-width: 300px;
 }

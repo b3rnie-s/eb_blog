@@ -11,7 +11,7 @@ module.exports = function(eleventyConfig) {
         
         // Handle empty links
         if (!url || url === '') {
-            return `<span class="inspiration-title">${linkText}</span>`;
+            return `<span class="breadcrumbs-title">${linkText}</span>`;
         }
         // Use normal link rendering for all other cases
         return `<a href="${url}">${linkText}</a>`;

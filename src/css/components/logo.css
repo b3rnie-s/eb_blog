@@ -1,7 +1,7 @@
 .logo {
     position: absolute;
     top: 2rem;
-    left: 2rem;
+    left: max(2rem, calc((100vw - 1000px) / 2 - 124px));
     z-index: 10;
 }
 
