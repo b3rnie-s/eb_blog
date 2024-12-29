@@ -3,4 +3,12 @@
     height: 1.5rem;
     margin: 2rem 0 2rem 0;
     display: block;
+    filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.4));
+}
+
+@media screen and (max-width: 1024px) {
+    .snake-separator {
+        filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.4));
+        transform: translateY(-4px);
+    }
 } 

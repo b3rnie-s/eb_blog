@@ -1,10 +1,19 @@
 .thoughts-section {
-    //background-color: #fcfbf7;
     padding: 1rem;
     border-radius: 1rem;
-    border: 1px solid #030304;
     min-width: 300px;
     max-width: 300px;
+    background: #ffffff;
+    position: relative;
+    border: 1px solid rgba(3, 3, 4, 0.8);
+    box-shadow: 8px 8px 0px 0px rgba(3, 3, 4, 0.8);
+    transform: translate(-4px, -4px);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.thoughts-section:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0px 0px rgba(3, 3, 4, 0.8);
 }
 
 .thoughts-header {

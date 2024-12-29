@@ -10,12 +10,14 @@
 @media screen and (max-width: 1024px) {
     .page-container {
         padding: 1rem;
+        margin-top: 120px;
     }
 }
 
 @media screen and (max-width: 570px) {
     .page-container {
         padding: 1rem;
+        margin-top: 100px;
     }
 }
 

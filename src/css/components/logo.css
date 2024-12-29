@@ -12,15 +12,18 @@
 
 @media screen and (max-width: 1024px) {
     .logo {
-        position: static;
-        padding: 0 1.5rem;
-        margin-top: 1.5rem;
+        position: absolute;
+        top: 1.5rem;
+        left: 1.5rem;
+        padding: 0;
+        margin: 0;
+        z-index: 1000;
     }
 }
 
 @media screen and (max-width: 570px) {
     .logo {
-        padding: 0 1rem;
-        margin-top: 1rem;
+        top: 1rem;
+        left: 1rem;
     }
 } 
