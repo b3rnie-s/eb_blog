@@ -1,29 +1,40 @@
+.logo-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 8rem;
+    overflow: hidden;
+    z-index: 1;
+}
+
 .logo {
     position: absolute;
-    top: 2rem;
-    left: max(2rem, calc((100vw - 1000px) / 2 - 124px));
-    z-index: 10;
+    top: 4rem;
+    left: max(2rem, calc((100vw - 1000px) / 2));
+    transform: scale(0.7);
 }
 
 .logo-image {
     width: clamp(100px, 12vw, 100px);
     height: auto;
+    cursor: ew-resize;
 }
 
 @media screen and (max-width: 1024px) {
+    .logo-container {
+        height: 7rem;
+    }
     .logo {
-        position: absolute;
-        top: 1.5rem;
-        left: 1.5rem;
-        padding: 0;
-        margin: 0;
-        z-index: 1000;
+        top: 3rem;
     }
 }
 
 @media screen and (max-width: 570px) {
+    .logo-container {
+        height: 7rem;
+    }
     .logo {
-        top: 1rem;
-        left: 1rem;
+        top: 3rem;
     }
 } 

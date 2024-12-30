@@ -1,0 +1,21 @@
+.horizon-line {
+    position: absolute;
+    top: 8rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(3, 3, 4, 0.8);
+    z-index: 2;
+}
+
+@media screen and (max-width: 1024px) {
+    .horizon-line {
+        top: 8rem;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .horizon-line {
+        top: 7rem;
+    }
+}

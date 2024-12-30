@@ -4,88 +4,111 @@ class ShadowController {
         this.sections = document.querySelectorAll('.thoughts-section, .breadcrumbs-section');
         this.snake = document.querySelector('.snake-separator');
         this.isDragging = false;
-        this.startY = 0;
         this.startX = 0;
-        this.minY = 2;
-        this.currentY = this.minY;
         this.currentX = 0;
-        this.maxY = window.innerHeight;
-        this.isMobile = window.matchMedia('(max-width: 1024px)').matches;
+        
+        // Get root font size once and cache it
+        this.rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+        
+        // Store initial positions
+        const topInPx = parseFloat(getComputedStyle(this.logo).top);
+        this.baseY = topInPx / this.rootFontSize;  // This should be 4rem from CSS
+        const initialLeftInPx = parseFloat(getComputedStyle(this.logo).left);
+        this.initialLeft = initialLeftInPx;
+        
+        // Calculate the width of the parabola and its center point
+        const windowWidth = window.innerWidth;
+        const rightEdge = windowWidth - 116; // Right boundary
+        this.parabolaWidth = rightEdge - this.initialLeft;
+        this.centerX = this.initialLeft + (this.parabolaWidth / 2);
+        
+        this.maxYOffset = 4; // rem units
+        this.baseScale = 0.7;
+        this.maxScaleBoost = 0.3;
         
         this.initDrag();
-        window.addEventListener('resize', () => {
-            this.isMobile = window.matchMedia('(max-width: 1024px)').matches;
-            this.maxY = window.innerHeight;
-        });
         
-        // Initial shadow calculation
-        this.updatePositionAndShadows();
+        // Update on resize
+        window.addEventListener('resize', () => {
+            this.rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize);
+            const topInPx = parseFloat(getComputedStyle(this.logo).top);
+            this.baseY = topInPx / this.rootFontSize;
+            const initialLeftInPx = parseFloat(getComputedStyle(this.logo).left);
+            this.initialLeft = initialLeftInPx;
+            
+            // Update parabola dimensions
+            const windowWidth = window.innerWidth;
+            const rightEdge = windowWidth - 116;
+            this.parabolaWidth = rightEdge - this.initialLeft;
+            this.centerX = this.initialLeft + (this.parabolaWidth / 2);
+        });
+    }
+
+    // Helper methods for conversions
+    pxToRem(px) {
+        return px / this.rootFontSize;
+    }
+
+    remToPx(rem) {
+        return rem * this.rootFontSize;
     }
 
     initDrag() {
-        this.logo.style.cursor = this.isMobile ? 'ew-resize' : 'ns-resize';
-        
-        const logoImage = this.logo.querySelector('.logo-image');
-        if (logoImage) {
-            logoImage.style.pointerEvents = 'auto';
-        }
-        
         const startDrag = (e) => {
             this.isDragging = true;
             const touch = e.touches ? e.touches[0] : e;
-            
-            if (this.isMobile) {
-                const currentLeft = parseFloat(getComputedStyle(this.logo).left);
-                this.startX = touch.clientX - currentLeft;
-            } else {
-                const currentTop = parseFloat(getComputedStyle(this.logo).top);
-                this.startY = touch.clientY - currentTop;
-            }
-            
-            document.body.style.userSelect = 'none';
+            const logoRect = this.logo.getBoundingClientRect();
+            this.logoStartX = logoRect.left;
+            this.cursorStartX = touch.clientX;
             e.preventDefault();
         };
 
         const moveDrag = (e) => {
             if (!this.isDragging) return;
             
-            requestAnimationFrame(() => {
-                const touch = e.touches ? e.touches[0] : e;
-                
-                if (this.isMobile) {
-                    // Horizontal dragging for mobile
-                    const minX = 16; // 1rem
-                    const maxX = window.innerWidth - 116; // window width - logo width - 1rem
-                    const newX = Math.max(minX, Math.min(maxX, touch.clientX - this.startX));
-                    this.currentX = newX;
-                    this.logo.style.left = `${newX}px`;
-                } else {
-                    // Vertical dragging for desktop
-                    const newY = Math.max(this.minY * 16, Math.min(this.maxY, touch.clientY - this.startY));
-                    this.currentY = newY / 16;
-                    this.logo.style.top = `${this.currentY}rem`;
-                }
-                
-                this.updatePositionAndShadows();
-            });
+            const touch = e.touches ? e.touches[0] : e;
+            const cursorDelta = touch.clientX - this.cursorStartX;
+            const newX = this.logoStartX + cursorDelta;
+            
+            // Responsive bounds
+            const minX = 16;
+            const maxX = window.innerWidth - 116;
+            const boundedX = Math.max(minX, Math.min(maxX, newX));
+            
+            // Calculate Y movement with responsive parabola
+            const responsiveMaxOffset = Math.min(this.maxYOffset, window.innerWidth / 250);
+            
+            // Create parabola with vertex at center
+            const a = responsiveMaxOffset / Math.pow(this.parabolaWidth / 2, 2);
+            const yOffset = -a * Math.pow(boundedX - this.centerX, 2) + responsiveMaxOffset;
+            const newY = this.baseY - yOffset;
+            
+            // Scale based on distance from center
+            const distanceFromCenter = Math.abs(boundedX - this.centerX) / (this.parabolaWidth / 2);
+            const scaleBoost = this.maxScaleBoost * (1 - distanceFromCenter);
+            const newScale = this.baseScale + scaleBoost;
+            
+            this.logo.style.left = `${boundedX}px`;
+            this.logo.style.top = `${newY}rem`;
+            this.logo.style.transform = `scale(${newScale})`;
+            this.currentX = boundedX;
+            
+            this.updatePositionAndShadows();
         };
 
         const stopDrag = () => {
             this.isDragging = false;
-            document.body.style.userSelect = '';
         };
 
         // Mouse events
         this.logo.addEventListener('mousedown', startDrag);
         document.addEventListener('mousemove', moveDrag);
         document.addEventListener('mouseup', stopDrag);
-        document.addEventListener('mouseleave', stopDrag);
 
         // Touch events
         this.logo.addEventListener('touchstart', startDrag, { passive: false });
         document.addEventListener('touchmove', moveDrag, { passive: false });
         document.addEventListener('touchend', stopDrag);
-        document.addEventListener('touchcancel', stopDrag);
     }
 
     calculateShadow(elementRect) {
@@ -104,19 +127,23 @@ class ShadowController {
         const dy = elementCenter.y - logoCenter.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
+        // Adjust shadow length based on logo's height
         const maxShadowX = 14;
         const maxShadowY = 7;
         const distanceDivisor = 300;
-        let shadowLength = Math.min(maxShadowX, (distance / distanceDivisor) * maxShadowX);
+        
+        // Calculate height factor (1 at lowest point, 0.3 at highest)
+        const currentY = parseFloat(this.logo.style.top);
+        const heightFactor = 0.3 + (0.7 * (currentY - (this.baseY - this.maxYOffset)) / this.maxYOffset);
+        
+        let shadowLength = Math.min(maxShadowX, (distance / distanceDivisor) * maxShadowX * heightFactor);
 
         let shadowX = (dx / distance) * shadowLength;
         let shadowY = (dy / distance) * shadowLength;
 
-        // Amplify horizontal movement on mobile
-        if (this.isMobile) {
-            shadowX *= 2;
-            shadowX = Math.min(Math.max(shadowX, -maxShadowX), maxShadowX);
-        }
+        // Amplify horizontal movement
+        shadowX *= 2;
+        shadowX = Math.min(Math.max(shadowX, -maxShadowX), maxShadowX);
 
         // Clamp vertical shadow
         shadowY = Math.min(Math.max(shadowY, -maxShadowY), maxShadowY);

@@ -2,22 +2,19 @@
     position: relative;
     max-width: 1000px;
     margin: 0 auto;
-    padding: 2rem;
-    padding-left: calc(1rem + 100px + 2rem);
-    padding-right: calc(1rem + 100px + 2rem);
+    padding: 8rem 2rem 2rem 2rem;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1024px) {
     .page-container {
-        padding: 1rem;
-        margin-top: 120px;
+        padding: 8rem 1rem 1rem 1rem;
     }
 }
 
 @media screen and (max-width: 570px) {
     .page-container {
-        padding: 1rem;
-        margin-top: 100px;
+        padding: 8rem 1rem 1rem 1rem;
     }
 }
 
