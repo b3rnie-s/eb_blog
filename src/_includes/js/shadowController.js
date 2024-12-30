@@ -22,7 +22,7 @@ class ShadowController {
         this.parabolaWidth = rightEdge - this.initialLeft;
         this.centerX = this.initialLeft + (this.parabolaWidth / 2);
         
-        this.maxYOffset = 4; // rem units
+        this.maxYOffset = 5; // rem units
         this.baseScale = 0.7;
         this.maxScaleBoost = 0.3;
         

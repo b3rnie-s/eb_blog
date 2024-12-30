@@ -32,9 +32,9 @@
 
 @media screen and (max-width: 570px) {
     .logo-container {
-        height: 6rem;
+        height: 5rem;
     }
     .logo {
-        top: 2.5rem;
+        top: 1.5rem;
     }
 } 
