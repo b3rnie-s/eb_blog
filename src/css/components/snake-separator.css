@@ -3,17 +3,29 @@
     margin: 4rem auto 6rem auto;
     height: 1.5rem;
     display: block;
-    filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.4));
+    filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.6));
     padding: 8px;
-    //margin-bottom: calc(2rem + 8px);
 }
 
 @media screen and (max-width: 1024px) {
     .snake-separator {
         width: 90%;
         margin-top: 1.5rem;
+        margin-bottom: calc(3rem + 12px);
+        filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.6));
+        transform: translateY(-4px);
+        overflow: visible;
+        -webkit-transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+    }
+} 
+
+@media screen and (max-width: 570px) {
+    .snake-separator {
+        width: 90%;
+        margin-top: 1.5rem;
         margin-bottom: calc(2rem + 12px);
-        filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.4));
+        filter: drop-shadow(8px 8px 0px rgba(3, 3, 4, 0.6));
         transform: translateY(-4px);
         overflow: visible;
         -webkit-transform: translateZ(0);

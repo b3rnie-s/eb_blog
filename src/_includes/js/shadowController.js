@@ -22,11 +22,21 @@ class ShadowController {
         this.parabolaWidth = rightEdge - this.initialLeft;
         this.centerX = this.initialLeft + (this.parabolaWidth / 2);
         
+        // Set initial scale
+        this.logo.style.transform = `scale(${this.baseScale})`;
+        // Set initial position explicitly
+        this.logo.style.left = `${this.initialLeft}px`;
+        this.logo.style.top = `${this.baseY}rem`;
+        this.currentX = this.initialLeft;
+        
         this.maxYOffset = 5; // rem units
         this.baseScale = 0.7;
         this.maxScaleBoost = 0.3;
         
         this.initDrag();
+        
+        // Calculate initial shadows
+        this.updatePositionAndShadows();
         
         // Update on resize
         window.addEventListener('resize', () => {
@@ -41,6 +51,9 @@ class ShadowController {
             const rightEdge = windowWidth - 116;
             this.parabolaWidth = rightEdge - this.initialLeft;
             this.centerX = this.initialLeft + (this.parabolaWidth / 2);
+            
+            // Recalculate shadows after resize
+            this.updatePositionAndShadows();
         });
     }
 
@@ -111,63 +124,64 @@ class ShadowController {
         document.addEventListener('touchend', stopDrag);
     }
 
-    calculateShadow(elementRect) {
+    calculateShadow(element, elementRect) {
         const logoRect = this.logo.getBoundingClientRect();
         const logoCenter = {
             x: logoRect.left + (logoRect.width / 2),
             y: logoRect.top + (logoRect.height / 2)
         };
+
+        // Check if this is the Bits carousel
+        const isBitsCarousel = element.classList.contains('thoughts-section');
         
-        const elementCenter = {
-            x: elementRect.left + (elementRect.width / 2),
-            y: elementRect.top + (elementRect.height / 2)
-        };
+        let elementCenter;
+        if (isBitsCarousel) {
+            // Get the visible thought
+            const visibleThought = element.querySelector('.thought:not([hidden])');
+            const visibleRect = visibleThought?.getBoundingClientRect();
+            elementCenter = {
+                x: visibleRect?.left + (visibleRect?.width / 2) || 0,
+                y: visibleRect?.top + (visibleRect?.height / 2) || 0
+            };
+        } else {
+            elementCenter = {
+                x: elementRect.left + (elementRect.width / 2),
+                y: elementRect.top + (elementRect.height / 2)
+            };
+        }
 
         const dx = elementCenter.x - logoCenter.x;
         const dy = elementCenter.y - logoCenter.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
         
-        // Adjust shadow length based on logo's height
-        const maxShadowX = 14;
-        const maxShadowY = 7;
-        const distanceDivisor = 300;
+        const viewportFactor = Math.min(1, window.innerWidth / 1024);
+        const isSnake = element.classList.contains('snake-separator');
+        
+        // Keep original shadow distances but scale by viewport
+        const maxShadowX = isSnake ? 60 * viewportFactor : 60;
+        const maxShadowY = isSnake ? 25 * viewportFactor : 25;
         
         // Calculate height factor (1 at lowest point, 0.3 at highest)
         const currentY = parseFloat(this.logo.style.top);
-        const heightFactor = 0.3 + (0.7 * (currentY - (this.baseY - this.maxYOffset)) / this.maxYOffset);
+        const heightFactor = 0.3 + (0.9 * (currentY - (this.baseY - this.maxYOffset)) / this.maxYOffset);
         
-        let shadowLength = Math.min(maxShadowX, (distance / distanceDivisor) * maxShadowX * heightFactor);
-
-        let shadowX = (dx / distance) * shadowLength;
-        let shadowY = (dy / distance) * shadowLength;
-
-        // Amplify horizontal movement
-        shadowX *= 2;
-        shadowX = Math.min(Math.max(shadowX, -maxShadowX), maxShadowX);
-
-        // Clamp vertical shadow
-        shadowY = Math.min(Math.max(shadowY, -maxShadowY), maxShadowY);
+        // Calculate shadows with direction and intensity
+        const shadowIntensity = Math.min(1, 400 / (distance + 50));
+        let shadowX = (dx / distance) * maxShadowX * shadowIntensity * heightFactor;
+        let shadowY = (dy / distance) * maxShadowY * shadowIntensity * heightFactor;
 
         return { shadowX, shadowY };
     }
 
     updatePositionAndShadows() {
         this.sections.forEach(section => {
-            section.style.willChange = 'transform, box-shadow';
-            const { shadowX, shadowY } = this.calculateShadow(section.getBoundingClientRect());
-            
+            const { shadowX, shadowY } = this.calculateShadow(section, section.getBoundingClientRect());
             section.style.boxShadow = `${shadowX}px ${shadowY}px 0px 0px rgba(3, 3, 4, 0.8)`;
             section.style.transform = `translate(${-shadowX/2}px, ${-shadowY/2}px)`;
         });
         
-        const snakeShadow = this.calculateShadow(this.snake.getBoundingClientRect());
-        this.snake.style.willChange = 'filter';
-        this.snake.style.filter = `drop-shadow(${snakeShadow.shadowX}px ${snakeShadow.shadowY}px 0px rgba(3, 3, 4, 0.8))`;
-        
-        setTimeout(() => {
-            this.sections.forEach(section => section.style.willChange = 'auto');
-            this.snake.style.willChange = 'auto';
-        }, 200);
+        const snakeShadow = this.calculateShadow(this.snake, this.snake.getBoundingClientRect());
+        this.snake.style.filter = `drop-shadow(${snakeShadow.shadowX}px ${snakeShadow.shadowY}px 0px rgba(3, 3, 4, 0.6))`;
     }
 }
 

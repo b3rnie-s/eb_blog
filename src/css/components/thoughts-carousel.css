@@ -8,7 +8,6 @@
     border: 1px solid rgba(3, 3, 4, 0.8);
     box-shadow: 8px 8px 0px 0px rgba(3, 3, 4, 0.8);
     transform: translate(-4px, -4px);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .thoughts-section:hover {
@@ -40,7 +39,7 @@
 
 .thought {
     opacity: 1;
-    transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.2s ease-in-out;
 }
 
 .thought[hidden] {
