@@ -20,7 +20,6 @@
 .logo {
     position: absolute;
     top: 4rem;
-    left: max(2rem, calc((100vw - 1000px) / 2));
     transform: scale(0.7);
 }
 
