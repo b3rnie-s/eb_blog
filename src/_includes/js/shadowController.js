@@ -22,21 +22,42 @@ class ShadowController {
         this.parabolaWidth = rightEdge - this.initialLeft;
         this.centerX = this.initialLeft + (this.parabolaWidth / 2);
         
-        // Set initial scale
-        this.logo.style.transform = `scale(${this.baseScale})`;
-        // Set initial position explicitly
-        this.logo.style.left = `${this.initialLeft}px`;
-        this.logo.style.top = `${this.baseY}rem`;
-        this.currentX = this.initialLeft;
-        
         this.maxYOffset = 5; // rem units
         this.baseScale = 0.7;
         this.maxScaleBoost = 0.3;
+        
+        // Calculate initial position based on time
+        const timeBasedX = this.calculateTimePosition();
+        this.currentX = timeBasedX;
+        
+        // Calculate Y position based on parabola
+        const responsiveMaxOffset = Math.min(this.maxYOffset, window.innerWidth / 250);
+        const a = responsiveMaxOffset / Math.pow(this.parabolaWidth / 2, 2);
+        const yOffset = -a * Math.pow(timeBasedX - this.centerX, 2) + responsiveMaxOffset;
+        const newY = this.baseY - yOffset;
+        
+        // Calculate scale based on position
+        const distanceFromCenter = Math.abs(timeBasedX - this.centerX) / (this.parabolaWidth / 2);
+        const scaleBoost = this.maxScaleBoost * (1 - distanceFromCenter);
+        const newScale = this.baseScale + scaleBoost;
+        
+        // Set initial position and scale
+        this.logo.style.left = `${timeBasedX}px`;
+        this.logo.style.top = `${newY}rem`;
+        this.logo.style.transform = `scale(${newScale})`;
         
         this.initDrag();
         
         // Calculate initial shadows
         this.updatePositionAndShadows();
+        
+        // Initialize canvas
+        this.canvas = document.getElementById('pathCanvas');
+        if (this.canvas) {
+            this.ctx = this.canvas.getContext('2d');
+            this.resizeCanvas();
+            this.drawPath();
+        }
         
         // Update on resize
         window.addEventListener('resize', () => {
@@ -54,6 +75,10 @@ class ShadowController {
             
             // Recalculate shadows after resize
             this.updatePositionAndShadows();
+            if (this.canvas) {
+                this.resizeCanvas();
+                this.drawPath();
+            }
         });
     }
 
@@ -182,6 +207,65 @@ class ShadowController {
         
         const snakeShadow = this.calculateShadow(this.snake, this.snake.getBoundingClientRect());
         this.snake.style.filter = `drop-shadow(${snakeShadow.shadowX}px ${snakeShadow.shadowY}px 0px rgba(3, 3, 4, 0.6))`;
+    }
+
+    resizeCanvas() {
+        const dpr = window.devicePixelRatio || 1;
+        const rect = this.canvas.getBoundingClientRect();
+        
+        this.canvas.width = rect.width * dpr;
+        this.canvas.height = rect.height * dpr;
+        this.ctx.scale(dpr, dpr);
+        this.ctx.setLineDash([10, 35]);
+        this.ctx.strokeStyle = 'rgba(3, 3, 4, 0.6)';
+        this.ctx.lineWidth = 2.5;
+    }
+
+    drawPath() {
+        const windowWidth = window.innerWidth;
+        const responsiveMaxOffset = Math.min(this.maxYOffset, window.innerWidth / 250);
+        const a = responsiveMaxOffset / Math.pow(this.parabolaWidth / 2, 2);
+        
+        const logoImage = this.logo.querySelector('.logo-image');
+        const logoRect = logoImage.getBoundingClientRect();
+        const logoXOffset = logoRect.width/ 2;
+        const logoYOffset = logoRect.height / 2;
+        
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.beginPath();
+        
+        // Start from left edge (0) to right edge (window.innerWidth)
+        for (let x = 0; x <= windowWidth; x += 2) {
+            const yOffset = -a * Math.pow(x - this.centerX, 2) + responsiveMaxOffset;
+            const baseYInPx = this.baseY * this.rootFontSize;
+            const y = (baseYInPx - (yOffset * this.rootFontSize));
+            
+            if (x === 0) {
+                this.ctx.moveTo(x + logoXOffset, y + logoYOffset);
+            } else {
+                this.ctx.lineTo(x + logoXOffset, y + logoYOffset);
+            }
+        }
+        
+        this.ctx.stroke();
+    }
+
+    calculateTimePosition() {
+        // Get current time
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+        
+        // Convert time to a percentage of the day (0-1)
+        const timePercentage = (hours * 60 + minutes) / (24 * 60);
+        
+        // Calculate position along the path
+        const windowWidth = window.innerWidth;
+        const minX = 16;
+        const maxX = windowWidth - 116;
+        
+        // Map the time percentage to the x position
+        return minX + (maxX - minX) * timePercentage;
     }
 }
 
